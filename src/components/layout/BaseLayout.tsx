@@ -12,9 +12,11 @@ export const BaseLayout = () => {
         
         <div className="flex-1 flex flex-col w-full h-full animate-in fade-in duration-500">
           <Outlet />
+          {/* Dynamic routes injection (PLP / PDP) */}
         </div>
       </main>
       
+      {/* Minimalist footer */}
       <footer className="mt-auto py-6 text-center text-sm text-gray-500 border-t border-gray-200">
         <p>© {new Date().getFullYear()} MobiStore - ITX Tech Test</p>
       </footer>
