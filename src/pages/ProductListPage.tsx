@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react';
-import { Search } from 'lucide-react';
-import { useProducts } from '@/hooks/useProducts';
-import { ProductCard } from '@/components/ui/ProductCard';
+import { useState, useMemo } from "react";
+import { Search } from "lucide-react";
+import { useProducts } from "@/hooks/useProducts";
+import { ProductCard } from "@/components/ui/ProductCard";
 
 export const ProductListPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  
+  const [searchTerm, setSearchTerm] = useState("");
+
   const { data: products, isLoading, isError } = useProducts();
 
   const filteredProducts = useMemo(() => {
@@ -13,7 +13,7 @@ export const ProductListPage = () => {
     if (!searchTerm.trim()) return products;
 
     const lowerCaseSearch = searchTerm.toLowerCase();
-    
+
     return products.filter((product) => {
       const brandMatch = product.brand.toLowerCase().includes(lowerCaseSearch);
       const modelMatch = product.model.toLowerCase().includes(lowerCaseSearch);
@@ -23,7 +23,6 @@ export const ProductListPage = () => {
 
   return (
     <div className="flex flex-col gap-6 w-full pb-10">
-      
       {/* Header section of the PLP */}
       <div className="flex flex-col sm:flex-row justify-between items-end sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
         <div>
@@ -61,7 +60,9 @@ export const ProductListPage = () => {
       {isError && (
         <div className="bg-red-50 text-red-600 p-8 rounded-2xl border border-red-100 text-center animate-in fade-in">
           <p className="font-semibold text-lg">Failed to load products.</p>
-          <p className="text-sm mt-2 opacity-80">Check your internet connection or try again later.</p>
+          <p className="text-sm mt-2 opacity-80">
+            Check your internet connection or try again later.
+          </p>
         </div>
       )}
 
@@ -71,11 +72,16 @@ export const ProductListPage = () => {
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-          
+
           {filteredProducts.length === 0 && (
             <div className="col-span-full py-20 text-center text-gray-500">
               <Search className="h-10 w-10 mx-auto text-gray-300 mb-4" />
-              <p className="text-lg">No smartphones found matching <span className="font-semibold text-gray-900">"{searchTerm}"</span></p>
+              <p className="text-lg">
+                No smartphones found matching{" "}
+                <span className="font-semibold text-gray-900">
+                  "{searchTerm}"
+                </span>
+              </p>
             </div>
           )}
         </div>

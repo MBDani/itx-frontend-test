@@ -1,5 +1,5 @@
-import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { QueryClient } from '@tanstack/react-query';
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { QueryClient } from "@tanstack/react-query";
 
 export const ONE_HOUR_IN_MS = 1000 * 60 * 60;
 
@@ -8,7 +8,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // 1. the data will be considered "fresh" for exactly 1 hour. It won't refetch on mount.
-      staleTime: ONE_HOUR_IN_MS, 
+      staleTime: ONE_HOUR_IN_MS,
       // 2. The data will not be garbage collected from memory until at least 1 hour passes
       gcTime: ONE_HOUR_IN_MS,
       // Refetch rules

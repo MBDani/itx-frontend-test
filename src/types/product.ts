@@ -13,7 +13,7 @@ export interface ApiProductDetails extends ApiProduct {
   edge: string;
   announced: string;
   status: string;
-  dimentions: string; 
+  dimentions: string;
   weight: string;
   sim: string;
   displayType: string;

@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 // Mock localStorage to avoid errors from Zustand persist middleware in Node/JsDOM environments
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
@@ -16,5 +16,4 @@ const localStorageMock = (() => {
   };
 })();
 
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
+Object.defineProperty(window, "localStorage", { value: localStorageMock });

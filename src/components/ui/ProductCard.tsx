@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import type { ApiProduct } from '@/types';
+import { Link } from "react-router-dom";
+import type { ApiProduct } from "@/types";
 
 interface ProductCardProps {
   product: ApiProduct;
@@ -19,14 +19,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           loading="lazy"
         />
       </div>
-      
+
       <div className="p-5 flex flex-col flex-1">
         <div className="flex justify-between items-start gap-3 mb-2">
           <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight">
             {product.model}
           </h3>
           <span className="font-bold text-lg text-gray-900 whitespace-nowrap">
-            {product.price ? `${product.price}€` : '-'}
+            {product.price ? `${product.price}€` : "-"}
           </span>
         </div>
         <p className="text-sm text-gray-500 font-medium tracking-wide uppercase mt-auto">

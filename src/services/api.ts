@@ -1,6 +1,11 @@
-import type { ApiProduct, ApiProductDetails, AddToCartPayload, AddToCartResponse } from '@/types';
+import type {
+  ApiProduct,
+  ApiProductDetails,
+  AddToCartPayload,
+  AddToCartResponse,
+} from "@/types";
 
-const API_BASE_URL = 'https://itx-frontend-test.onrender.com/api';
+const API_BASE_URL = "https://itx-frontend-test.onrender.com/api";
 
 /**
  * Custom error class to handle API failures gracefully
@@ -10,7 +15,7 @@ class ApiError extends Error {
   constructor(status: number, message: string) {
     super(message);
     this.status = status;
-    this.name = 'ApiError';
+    this.name = "ApiError";
   }
 }
 
@@ -21,13 +26,16 @@ async function fetcher<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options?.headers,
     },
   });
 
   if (!response.ok) {
-    throw new ApiError(response.status, `Network Error: ${response.statusText}`);
+    throw new ApiError(
+      response.status,
+      `Network Error: ${response.statusText}`,
+    );
   }
 
   // The API might return non-JSON on 204 or empty responses, so we guard
@@ -39,7 +47,7 @@ async function fetcher<T>(endpoint: string, options?: RequestInit): Promise<T> {
  * GET: Fetches the complete list of mobile phones.
  */
 export const getProducts = (): Promise<ApiProduct[]> => {
-  return fetcher<ApiProduct[]>('/product');
+  return fetcher<ApiProduct[]>("/product");
 };
 
 /**
@@ -52,9 +60,11 @@ export const getProductDetails = (id: string): Promise<ApiProductDetails> => {
 /**
  * POST: Adds a product with specific options to the cart.
  */
-export const addToCart = (payload: AddToCartPayload): Promise<AddToCartResponse> => {
-  return fetcher<AddToCartResponse>('/cart', {
-    method: 'POST',
+export const addToCart = (
+  payload: AddToCartPayload,
+): Promise<AddToCartResponse> => {
+  return fetcher<AddToCartResponse>("/cart", {
+    method: "POST",
     body: JSON.stringify(payload),
   });
 };

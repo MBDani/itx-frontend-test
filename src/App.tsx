@@ -1,7 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
-import { BaseLayout } from '@/components/layout/BaseLayout';
-import { ProductListPage } from '@/pages/ProductListPage';
-import { ProductDetailsPage } from '@/pages/ProductDetailsPage';
+import { Routes, Route } from "react-router-dom";
+import { BaseLayout } from "@/components/layout/BaseLayout";
+import { ProductListPage } from "@/pages/ProductListPage";
+import { ProductDetailsPage } from "@/pages/ProductDetailsPage";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-import { addToCart } from '@/services/api';
-import { useCartStore } from '@/store/cartStore';
+import { useMutation } from "@tanstack/react-query";
+import { addToCart } from "@/services/api";
+import { useCartStore } from "@/store/cartStore";
 
 export const useAddToCart = () => {
   const incrementCart = useCartStore((state) => state.incrementCart);
