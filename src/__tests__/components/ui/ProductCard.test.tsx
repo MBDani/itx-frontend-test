@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { MemoryRouter } from "react-router-dom";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "@/components/ui/ProductCard";
 import type { ApiProduct } from "@/types";
 
 const mockProduct: ApiProduct = {

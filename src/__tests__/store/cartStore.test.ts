@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { useCartStore } from "./cartStore";
+import { useCartStore } from "@/store/cartStore";
 
 describe("Cart Store (Zustand)", () => {
   // Reset the store before each run to avoid state leakage between tests
