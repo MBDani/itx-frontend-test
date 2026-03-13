@@ -74,9 +74,11 @@ describe("Product Details Page (PDP)", () => {
     expect(screen.getByText("999€")).toBeInTheDocument();
 
     // Verify joined array properties (cameras parsing logic resilience)
-    expect(
-      screen.getByText("Main: 48 MP, 12 MP | Front: 12 MP"),
-    ).toBeInTheDocument();
+    // Appears in both the spec card and the full specs table
+    const cameraElements = screen.getAllByText(
+      "Main: 48 MP, 12 MP | Front: 12 MP",
+    );
+    expect(cameraElements.length).toBeGreaterThanOrEqual(1);
 
     // Verify option chips exist
     expect(screen.getByRole("button", { name: "Black" })).toBeInTheDocument();

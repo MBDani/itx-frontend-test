@@ -49,6 +49,6 @@ describe("ProductCard Component", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText("-")).toBeInTheDocument();
+    expect(screen.getByText("—")).toBeInTheDocument();
   });
 });

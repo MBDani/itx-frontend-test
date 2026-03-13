@@ -15,52 +15,84 @@ export const Breadcrumbs = () => {
   if (pathnames.length === 0) return null;
 
   return (
-    <nav className="flex items-center text-sm font-medium text-gray-500 mb-6 py-2 pb-4 border-b border-gray-200/50">
-      <Link
-        to="/"
-        className="flex items-center hover:text-blue-600 transition-colors duration-200"
-        aria-label="Home"
-      >
-        <Home className="w-4 h-4" />
-      </Link>
+    <nav
+      className="w-full bg-white border-b border-slate-200 mb-6"
+      aria-label="Breadcrumb"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+        <ol className="flex items-center space-x-2 text-sm font-medium">
+          <li>
+            <Link
+              to="/"
+              className="flex items-center gap-1 text-slate-500 hover:text-primary transition-colors"
+              aria-label="Home"
+            >
+              <Home className="w-4 h-4" />
+              <span className="hidden sm:inline">Home</span>
+            </Link>
+          </li>
 
-      <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
+          <li className="flex items-center text-slate-400">
+            <ChevronRight className="w-4 h-4" />
+          </li>
 
-      {isProductRoute ? (
-        <span
-          className={clsx(
-            "text-gray-900 font-semibold tracking-tight transition-all",
-            "animate-in fade-in slide-in-from-left-2",
-          )}
-          aria-current="page"
-        >
-          {product ? `${product.brand} ${product.model}` : "Loading details..."}
-        </span>
-      ) : (
-        /* Generic fallback for other potential future routes */
-        pathnames.map((value, index) => {
-          const to = `/${pathnames.slice(0, index + 1).join("/")}`;
-          const isLast = index === pathnames.length - 1;
-          const formattedValue = value.charAt(0).toUpperCase() + value.slice(1);
-
-          return (
-            <div key={to} className="flex items-center">
-              {index > 0 && (
-                <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
-              )}
-              {isLast ? (
-                <span className="text-gray-900 font-semibold">
-                  {formattedValue}
-                </span>
-              ) : (
-                <Link to={to} className="hover:text-blue-600 transition-colors">
-                  {formattedValue}
+          {isProductRoute ? (
+            <>
+              <li>
+                <Link
+                  to="/"
+                  className="text-slate-500 hover:text-primary transition-colors"
+                >
+                  Smartphones
                 </Link>
-              )}
-            </div>
-          );
-        })
-      )}
+              </li>
+              <li className="flex items-center text-slate-400">
+                <ChevronRight className="w-4 h-4" />
+              </li>
+              <li>
+                <span
+                  className={clsx(
+                    "text-primary font-semibold animate-in fade-in slide-in-from-left-2",
+                  )}
+                  aria-current="page"
+                >
+                  {product ? `${product.brand} ${product.model}` : "Loading..."}
+                </span>
+              </li>
+            </>
+          ) : (
+            pathnames.map((value, index) => {
+              const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+              const isLast = index === pathnames.length - 1;
+              const formattedValue =
+                value.charAt(0).toUpperCase() + value.slice(1);
+
+              return (
+                <li key={to} className="flex items-center gap-2">
+                  {index > 0 && (
+                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                  )}
+                  {isLast ? (
+                    <span
+                      className="text-primary font-semibold"
+                      aria-current="page"
+                    >
+                      {formattedValue}
+                    </span>
+                  ) : (
+                    <Link
+                      to={to}
+                      className="text-slate-500 hover:text-primary transition-colors"
+                    >
+                      {formattedValue}
+                    </Link>
+                  )}
+                </li>
+              );
+            })
+          )}
+        </ol>
+      </div>
     </nav>
   );
 };

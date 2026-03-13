@@ -1,43 +1,51 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag, Smartphone } from "lucide-react";
+import { Smartphone, Search, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 
 export const Header = () => {
-  const cartCount = useCartStore((state) => state.count);
+  const cartCount = useCartStore((state: { count: number }) => state.count);
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 border-b border-gray-200/80 shadow-sm transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo / Home Link */}
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md transition-all duration-300">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+        {/* Logo */}
+        <div className="flex items-center gap-10">
           <Link
             to="/"
-            className="flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg rounded-tl-none rounded-bl-none p-1"
+            className="flex items-center gap-2 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
           >
-            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl group-hover:shadow-lg group-hover:shadow-blue-500/30 transition-all duration-300 group-active:scale-95">
-              <Smartphone className="w-6 h-6 text-white" strokeWidth={1.5} />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+              <Smartphone className="w-5 h-5" strokeWidth={2} />
             </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 tracking-tight">
+            <span className="text-xl font-black tracking-tight text-slate-900">
               MobiStore
             </span>
           </Link>
+        </div>
 
-          {/* Cart Status */}
-          <div className="flex items-center">
-            <div className="relative flex items-center gap-2 px-3 py-2 bg-gray-100/80 rounded-full border border-gray-200/50 hover:bg-gray-200/80 transition-colors cursor-default">
-              <ShoppingBag className="w-5 h-5 text-gray-700" />
-              <span className="text-sm font-semibold text-gray-900 tabular-nums">
+        {/* Right: Search + Cart */}
+        <div className="flex items-center gap-4">
+          {/* Search icon (mobile) */}
+          <button
+            className="sm:hidden flex h-10 w-10 items-center justify-center rounded-full text-slate-600 hover:bg-primary/10 transition-colors"
+            aria-label="Search"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+
+          {/* Cart with badge */}
+          <div className="relative">
+            <button
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-primary/20 transition-colors cursor-default"
+              aria-label={`Cart with ${cartCount} items`}
+            >
+              <ShoppingCart className="w-5 h-5" />
+            </button>
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white ring-2 ring-background-light">
                 {cartCount}
               </span>
-
-              {/* Badge dot if cart has items */}
-              {cartCount > 0 && (
-                <span className="absolute top-0 right-0 -mt-1 -mr-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-600"></span>
-                </span>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>

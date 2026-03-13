@@ -40,7 +40,11 @@ describe("Breadcrumbs Component", () => {
     );
 
     // Settings es un Link porque no es el último eslabón
-    expect(screen.getByRole("link", { name: /settings/i })).toBeInTheDocument();
+    const links = screen.getAllByRole("link");
+    const settingsLink = links.find((l) =>
+      /settings/i.test(l.textContent ?? ""),
+    );
+    expect(settingsLink).toBeInTheDocument();
 
     // Profile es texto plano porque es the current page
     expect(screen.getByText("Profile")).toBeInTheDocument();

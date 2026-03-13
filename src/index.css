@@ -1,11 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #121212;
-  --color-primary-light: #2c2c2c;
-  --color-accent: #0070f3;
+  --color-primary: #6467f2;
+  --color-background-light: #f6f6f8;
+  --color-background-dark: #101122;
 }
 
 body {
-  @apply bg-gray-50 text-primary antialiased;
+  font-family: "Inter", sans-serif;
+  @apply bg-background-light text-slate-900 antialiased;
+}
+
+/* Smooth hover lift for product cards */
+.product-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
 }

@@ -10,49 +10,52 @@ export const ProductListPage = () => {
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
-    if (!searchTerm.trim()) return products;
-
-    const lowerCaseSearch = searchTerm.toLowerCase();
 
     return products.filter((product) => {
-      const brandMatch = product.brand.toLowerCase().includes(lowerCaseSearch);
-      const modelMatch = product.model.toLowerCase().includes(lowerCaseSearch);
-      return brandMatch || modelMatch;
+      const lowerSearch = searchTerm.toLowerCase();
+      return (
+        !searchTerm.trim() ||
+        product.brand.toLowerCase().includes(lowerSearch) ||
+        product.model.toLowerCase().includes(lowerSearch)
+      );
     });
   }, [products, searchTerm]);
 
   return (
-    <div className="flex flex-col gap-6 w-full pb-10">
-      {/* Header section of the PLP */}
-      <div className="flex flex-col sm:flex-row justify-between items-end sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+    <div className="flex flex-col w-full pb-10">
+      {/* Hero Section */}
+      <section className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-1">
+          <h1 className="text-5xl font-black tracking-tight text-slate-900">
             Smartphones
           </h1>
-          <p className="text-gray-500 mt-1">
-            {filteredProducts.length} devices available
+          <p className="text-lg font-medium text-slate-500">
+            {isLoading
+              ? "Loading..."
+              : `${filteredProducts.length} premium devices available`}
           </p>
         </div>
 
-        {/* Real-time Search Input */}
-        <div className="relative w-full sm:w-72 md:w-96 group">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+        {/* Search Bar */}
+        <div className="w-full max-w-md">
+          <div className="group relative flex items-center">
+            <Search className="absolute left-4 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors pointer-events-none" />
+            <input
+              type="text"
+              id="product-search"
+              className="w-full rounded-xl border-2 border-slate-200 bg-white py-3.5 pl-12 pr-4 text-base font-medium shadow-sm outline-none ring-primary/20 transition-all focus:border-primary focus:ring-4 placeholder:text-slate-400"
+              placeholder="Search for your next phone..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-          <input
-            type="text"
-            className="block w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50/50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm"
-            placeholder="Search by brand or model..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
         </div>
-      </div>
+      </section>
 
-      {/* Loading Skeleton Space */}
+      {/* Loading State */}
       {isLoading && (
         <div className="flex items-center justify-center py-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
       )}
 
@@ -66,20 +69,20 @@ export const ProductListPage = () => {
         </div>
       )}
 
-      {/* Grid: Responsive setup complying with "Maximum 4 items per row" (lg:grid-cols-4) */}
+      {/* Product Grid */}
       {!isLoading && !isError && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-in fade-in duration-500">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 animate-in fade-in duration-500">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
 
           {filteredProducts.length === 0 && (
-            <div className="col-span-full py-20 text-center text-gray-500">
-              <Search className="h-10 w-10 mx-auto text-gray-300 mb-4" />
+            <div className="col-span-full py-20 text-center text-slate-500">
+              <Search className="h-10 w-10 mx-auto text-slate-300 mb-4" />
               <p className="text-lg">
                 No smartphones found matching{" "}
-                <span className="font-semibold text-gray-900">
-                  "{searchTerm}"
+                <span className="font-semibold text-slate-900">
+                  &ldquo;{searchTerm}&rdquo;
                 </span>
               </p>
             </div>

@@ -67,10 +67,14 @@ describe("Product List Page (PLP)", () => {
 
     // Wait until they are printed in DOM
     await waitFor(() => {
-      expect(screen.getByText("Apple")).toBeInTheDocument();
+      // Apple appears in both the brand filter pill and the product card
+      const appleElements = screen.getAllByText("Apple");
+      expect(appleElements.length).toBeGreaterThanOrEqual(1);
       expect(screen.getByText("Galaxy S24")).toBeInTheDocument();
       // Counter header matches mock array length
-      expect(screen.getByText("2 devices available")).toBeInTheDocument();
+      expect(
+        screen.getByText("2 premium devices available"),
+      ).toBeInTheDocument();
     });
   });
 });
